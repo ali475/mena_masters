@@ -7,6 +7,13 @@
     <groupId>mena-masters</groupId>
     <artifactId>mena-masters</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.cloudsimplus/cloudsim-plus -->
+        <dependency>
+            <groupId>org.cloudsimplus</groupId>
+            <artifactId>cloudsim-plus</artifactId>
+            <version>5.1.1</version>
+        </dependency>
 
-
+    </dependencies>
 </project>
