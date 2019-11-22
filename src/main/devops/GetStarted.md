@@ -49,7 +49,7 @@ git checkout dev
 ```
 ### clone Project from github (windows)
 - creating folder where code will be in 
-- open git add cli 
+- open git cli  
 - go to folder using command 
 ```
 cd /path/to/folder
