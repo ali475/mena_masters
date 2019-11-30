@@ -1,5 +1,132 @@
 {
-  "name": {
-    "name": "ali"
-  }
+  "Data-center": {
+    "name": "Data-center-0",
+    "VmAllocationPolicy": "VmAllocationPolicySimple"
+  },
+
+  "DataCenterBroker": {
+    "name": "broker1"
+  },
+  "Hosts": [
+    {
+      "id": 0,
+      "ram": 4096,
+      "storage": 1000000,
+      "bw": 1000000,
+      "RamProvisioner": "RamProvisionerSimple",
+      "BwProvisioner": "BwProvisionerSimple",
+      "PEs": [
+        {
+          "id": 0,
+          "mips": 100000
+        },
+        {
+          "id": 1,
+          "mips": 100000
+        }
+      ],
+      "VmSchedulerTime": "VmSchedulerTimeShared"
+    },
+    {
+      "id": 1,
+      "ram": 4096,
+      "storage": 1000000,
+      "bw": 10000,
+      "RamProvisioner": "RamProvisionerSimple",
+      "BwProvisioner": "BwProvisionerSimple",
+      "PEs": [
+        {
+          "id": 0,
+          "mips": 100000
+        },
+        {
+          "id": 1,
+          "mips": 100000
+        }
+      ],
+      "VmSchedulerTime": "VmSchedulerTimeShared"
+    },
+    {
+      "id": 2,
+      "ram": 2048,
+      "storage": 1000000,
+      "bw": 10000,
+      "RamProvisioner": "RamProvisionerSimple",
+      "BwProvisioner": "BwProvisionerSimple",
+      "PEs": [
+        {
+          "id": 0,
+          "mips": 1000
+        },
+        {
+          "id": 1,
+          "mips": 1000
+        }
+      ],
+      "VmSchedulerTime": "VmSchedulerTimeShared"
+    }
+  ],
+  "VMS": [
+    {
+      "id": 0,
+      "mips": 1000,
+      "image-size": 100,
+      "ram": 512,
+      "bw": 1000,
+      "cpus": 1,
+      "vm-name": "Xen"
+    },
+    {
+      "id": 1,
+      "mips": 1000,
+      "image-size": 10000,
+      "ram": 512,
+      "bw": 1000,
+      "cpus": 1,
+      "vm-name": "Xen"
+    }
+  ],
+  "Cloudlets": [
+    {
+      "id": 0,
+      "length": 4000,
+      "fileSize": 3000,
+      "outputSize": 300,
+      "CLOUDLET_PES": 2 ,
+      "UtilizationModel": "UtilizationModelFull"
+    },
+    {
+      "id": 1,
+      "length": 700,
+      "fileSize": 300,
+      "outputSize": 300,
+      "CLOUDLET_PES": 2,
+      "UtilizationModel": "UtilizationModelFull"
+    },
+    {
+      "id": 2,
+      "length": 700,
+      "fileSize": 300,
+      "outputSize": 300,
+      "CLOUDLET_PES": 2,
+      "UtilizationModel": "UtilizationModelFull"
+    },
+    {
+      "id": 3,
+      "length": 700,
+      "fileSize": 300,
+      "outputSize": 300,
+      "CLOUDLET_PES": 2,
+      "UtilizationModel": "UtilizationModelFull"
+    },
+    {
+      "id": 5,
+      "length": 700,
+      "fileSize": 300,
+      "outputSize": 300,
+      "CLOUDLET_PES": 2,
+      "UtilizationModel": "UtilizationModelFull"
+    }
+  ],
+  "numUser": 1
 }
