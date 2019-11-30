@@ -21,27 +21,30 @@ import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletScheduler;
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerCompletelyFair;
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerSpaceShared;
-
+import org.cloudbus.cloudsim.schedulers.vm.VmScheduler;
+import org.cloudbus.cloudsim.schedulers.vm.VmSchedulerTimeShared;
+import org.cloudbus.cloudsim.schedulers.vm.VmSchedulerSpaceShared;
+import org.cloudbus.cloudsim.schedulers.vm.VmSchedulerTimeSharedOverSubscription;
 
 public class GlobalMappings {
 
     public static VmAllocationPolicy getVmAllocationPolicy(String allocationPolicy) {
         if (allocationPolicy == null) {
             return null;
-        } else if (allocationPolicy == "VmAllocationPolicySimple") {
+        } else if (allocationPolicy.equals("VmAllocationPolicySimple")) {
             return new VmAllocationPolicySimple();
-        } else if (allocationPolicy == "VmAllocationPolicyBestFit") {
+        } else if (allocationPolicy.equals("VmAllocationPolicyBestFit")) {
             return new VmAllocationPolicyBestFit();
-        } else if (allocationPolicy == "VmAllocationPolicyFirstFit") {
+        } else if (allocationPolicy.equals("VmAllocationPolicyFirstFit")) {
             return new VmAllocationPolicyFirstFit();
-        } else if (allocationPolicy == "VmAllocationPolicyRandom") {
+        } else if (allocationPolicy.equals("VmAllocationPolicyRandom")) {
             double mean = 50.0;
             double standardDeviation = 2.0;
             ContinuousDistribution continuousDistribution = new NormalDistr(mean, standardDeviation);
             return new VmAllocationPolicyRandom(continuousDistribution);
-        } else if (allocationPolicy == "VmAllocationPolicyRoundRobin") {
+        } else if (allocationPolicy.equals("VmAllocationPolicyRoundRobin")) {
             return new VmAllocationPolicyRoundRobin();
-        } else if (allocationPolicy == "VmAllocationPolicyWorstFit") {
+        } else if (allocationPolicy.equals("VmAllocationPolicyWorstFit")) {
             return new VmAllocationPolicyWorstFit();
         } else {
             return new VmAllocationPolicySimple();
@@ -51,11 +54,11 @@ public class GlobalMappings {
     public static CloudletScheduler getCloudLetScheduler(String CloudletScheduler) {
         if (CloudletScheduler == null) {
             return null;
-        } else if (CloudletScheduler == "CloudletSchedulerTimeShared") {
+        } else if (CloudletScheduler.equals("CloudletSchedulerTimeShared")) {
             return new CloudletSchedulerTimeShared();
-        } else if (CloudletScheduler == "CloudletSchedulerCompletelyFair") {
+        } else if (CloudletScheduler.equals("CloudletSchedulerCompletelyFair")) {
             return new CloudletSchedulerCompletelyFair();
-        } else if (CloudletScheduler == "CloudletSchedulerSpaceShared") {
+        } else if (CloudletScheduler.equals("CloudletSchedulerSpaceShared")) {
             return new CloudletSchedulerSpaceShared();
         } else {
             return new CloudletSchedulerSpaceShared();
@@ -66,19 +69,19 @@ public class GlobalMappings {
         // todo add new algorithms here after implementation
         if (DataCenterBroker == null) {
             return null;
-        } else if (DataCenterBroker == "DatacenterBrokerBestFit") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerBestFit")) {
             return new DatacenterBrokerBestFit(simulation);
-        } else if (DataCenterBroker == "DatacenterBrokerFirstFit") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerFirstFit")) {
             return new DatacenterBrokerFirstFit(simulation);
-        } else if (DataCenterBroker == "DatacenterBrokerSimple") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerSimple")) {
             return new DatacenterBrokerSimple(simulation);
-        } else if (DataCenterBroker == "DatacenterBrokerPracticalSwarm") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerPracticalSwarm")) {
             // todo return new DatacenterBrokerPracticalSwarm(simulation);
             return new DatacenterBrokerSimple(simulation);
-        } else if (DataCenterBroker == "DatacenterBrokerSecondImplementation") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerSecondImplementation")) {
             // todo return new DatacenterBrokerSecondImplementation(simulation);
             return new DatacenterBrokerSimple(simulation);
-        } else if (DataCenterBroker == "DatacenterBrokerHybrid") {
+        } else if (DataCenterBroker.equals("DatacenterBrokerHybrid")) {
             // todo return new DatacenterBrokerHybrid(simulation);
             return new DatacenterBrokerSimple(simulation);
         } else {
@@ -87,4 +90,19 @@ public class GlobalMappings {
     }
 
 
+    public static VmScheduler getVmScheduler(String vmSchedulerStr) {
+
+        if (vmSchedulerStr == null) {
+            return null;
+        } else if (vmSchedulerStr.equals("VmSchedulerTimeShared")) {
+            return new VmSchedulerTimeShared();
+        } else if (vmSchedulerStr.equals("VmSchedulerSpaceShared")) {
+            return new VmSchedulerSpaceShared();
+        } else if (vmSchedulerStr.equals("VmSchedulerTimeSharedOverSubscription")) {
+            return new VmSchedulerTimeSharedOverSubscription();
+        } else {
+            return new VmSchedulerTimeShared();
+        }
+
+    }
 }
