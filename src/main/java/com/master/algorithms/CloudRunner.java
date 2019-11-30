@@ -35,6 +35,7 @@ import org.cloudbus.cloudsim.vms.VmSimple;
 import org.cloudsimplus.builders.tables.CloudletsTableBuilder;
 import org.cloudsimplus.util.Log;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -89,6 +90,7 @@ public class CloudRunner {
         printVmsCpuUtilizationAndPowerConsumption();
     }
 
+    @NotNull
     private List<Vm> createVmsFromConfig() {
         List<Vm> list = new ArrayList<>();
         JSONArray Vms = (JSONArray) CONFIG_READER.getProperty("VMS");
@@ -116,6 +118,7 @@ public class CloudRunner {
         return list;
     }
 
+    @NotNull
     private List<Host> createHostsFromConfig() {
         List<Host> hostlist = new ArrayList<>();
         JSONArray hosts = (JSONArray) CONFIG_READER.getProperty("Hosts");
@@ -128,7 +131,8 @@ public class CloudRunner {
         return hostlist;
     }
 
-    private Host createPowerHost(JSONObject hostAsJson) {
+    @NotNull
+    private Host createPowerHost(@NotNull JSONObject hostAsJson) {
         List<Pe> peList = new ArrayList<>();
         JSONArray peJsonArray = (JSONArray) hostAsJson.get("PEs");
         for (Object peAsObj : peJsonArray) {
@@ -156,6 +160,7 @@ public class CloudRunner {
         return host;
     }
 
+    @NotNull
     private List<Cloudlet> createCloudLetsFromConfig() {
         final List<Cloudlet> list = new ArrayList<>();
         final UtilizationModel utilization = new UtilizationModelDynamic(0.2);
@@ -187,7 +192,7 @@ public class CloudRunner {
         }
     }
 
-    private void printHostCpuUtilizationAndPowerConsumption(final Host host) {
+    private void printHostCpuUtilizationAndPowerConsumption(@NotNull final Host host) {
         System.out.printf("Host %d CPU utilization and power consumption%n", host.getId());
         System.out.println("----------------------------------------------------------------------------------------------------------------------");
         final Map<Double, DoubleSummaryStatistics> utilizationPercentHistory = host.getUtilizationHistory();
@@ -247,6 +252,7 @@ public class CloudRunner {
     }
 
 
+    @NotNull
     private Datacenter createDataCenter() {
         // get settings from config file
         JSONObject DataCenterJSON = (JSONObject) CONFIG_READER.getProperty("Data-center");
