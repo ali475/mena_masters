@@ -7,7 +7,6 @@ import com.master.config.ConfigReader;
 
 import com.master.utl.GlobalMappings;
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicy;
-import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.hosts.HostSimple;
@@ -18,8 +17,8 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisioner;
 import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple;
 import org.cloudbus.cloudsim.resources.Pe;
 import org.cloudbus.cloudsim.resources.PeSimple;
+import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletScheduler;
 import org.cloudbus.cloudsim.schedulers.vm.VmScheduler;
-import org.cloudbus.cloudsim.schedulers.vm.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.cloudlets.Cloudlet;
 import org.cloudbus.cloudsim.cloudlets.CloudletSimple;
 import org.cloudbus.cloudsim.core.CloudSim;
@@ -27,7 +26,6 @@ import org.cloudbus.cloudsim.datacenters.Datacenter;
 import org.cloudbus.cloudsim.datacenters.DatacenterSimple;
 import org.cloudbus.cloudsim.hosts.Host;
 import org.cloudbus.cloudsim.power.models.PowerAware;
-import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.utilizationmodels.UtilizationModel;
 import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelDynamic;
 import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull;
@@ -50,13 +48,11 @@ import java.util.Map;
 public class CloudRunner {
 
     private static final int SCHEDULING_INTERVAL = 10;
-
     /**
      * Defines the minimum percentage of power a Host uses,
      * even it it's idle.
      */
     private static final double STATIC_POWER_PERCENT = 0.7;
-
     /**
      * The max number of watt-second (Ws) of power a Host uses.
      */
@@ -105,8 +101,14 @@ public class CloudRunner {
             long BW = (long) ((JSONObject) VmAsObj).get("bw");
             long Size = (long) ((JSONObject) VmAsObj).get("image-size");
             Vm vm = new VmSimple(id, mipsCapacity, numberOfPes);
+
+            //create cloudletScheduler form config
+
+            String cloudletSchedulerStr = (String) ((JSONObject) VmAsObj).get("cloudletScheduler");
+
+            CloudletScheduler cloudletScheduler = GlobalMappings.getCloudLetScheduler(cloudletSchedulerStr);
             vm.setRam(Ram).setBw(BW).setSize(Size)
-                    .setCloudletScheduler(new CloudletSchedulerTimeShared()); // todo get from config
+                    .setCloudletScheduler(cloudletScheduler); // todo get from config
             vm.getUtilizationHistory().enable();
             list.add(vm);
         }
@@ -140,8 +142,12 @@ public class CloudRunner {
         final long storage = (long) hostAsJson.get("storage"); //in Megabytes
         final ResourceProvisioner ramProvisioner = new ResourceProvisionerSimple();
         final ResourceProvisioner bwProvisioner = new ResourceProvisionerSimple();
-        final VmScheduler vmScheduler = new VmSchedulerTimeShared();
+
+        // creating VmScheduler from config
+        final String vmSchedulerStr = (String) hostAsJson.get("VmScheduler");
+        final VmScheduler vmScheduler = GlobalMappings.getVmScheduler(vmSchedulerStr);
         final Host host = new HostSimple(ram, bw, storage, peList);
+        // creating power model
         host.setPowerModel(powerModel);
         host
                 .setRamProvisioner(ramProvisioner)
@@ -243,14 +249,13 @@ public class CloudRunner {
 
     private Datacenter createDataCenter() {
         // get settings from config file
-        JSONObject DataCenterJSON = (JSONObject) this.CONFIG_READER.getProperty("Data-center");
+        JSONObject DataCenterJSON = (JSONObject) CONFIG_READER.getProperty("Data-center");
         // creating allocation policy
         String allocationPolicyStr = (String) DataCenterJSON.get("VmAllocationPolicy");
-        VmAllocationPolicy allocationPolicy = this.MAPPING.getVmAllocationPolicy(allocationPolicyStr);
+        VmAllocationPolicy allocationPolicy = GlobalMappings.getVmAllocationPolicy(allocationPolicyStr);
         // creating data center
         final Datacenter dc = new DatacenterSimple(simulation, hostList, allocationPolicy);
         dc.setSchedulingInterval(SCHEDULING_INTERVAL);
         return dc;
     }
-
 }
