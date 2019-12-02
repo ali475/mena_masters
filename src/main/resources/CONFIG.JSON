@@ -25,7 +25,7 @@
           "mips": 100000
         }
       ],
-      "VmSchedulerTime": "VmSchedulerTimeShared"
+      "VmScheduler": "VmSchedulerTimeShared"
     },
     {
       "id": 1,
@@ -44,7 +44,7 @@
           "mips": 100000
         }
       ],
-      "VmSchedulerTime": "VmSchedulerTimeShared"
+      "VmScheduler": "VmSchedulerTimeShared"
     },
     {
       "id": 2,
@@ -63,7 +63,7 @@
           "mips": 1000
         }
       ],
-      "VmSchedulerTime": "VmSchedulerTimeShared"
+      "VmScheduler": "VmSchedulerTimeShared"
     }
   ],
   "VMS": [
@@ -74,7 +74,8 @@
       "ram": 512,
       "bw": 1000,
       "cpus": 1,
-      "vm-name": "Xen"
+      "vm-name": "Xen",
+      "cloudletScheduler": "CloudletSchedulerTimeShared"
     },
     {
       "id": 1,
@@ -83,7 +84,8 @@
       "ram": 512,
       "bw": 1000,
       "cpus": 1,
-      "vm-name": "Xen"
+      "vm-name": "Xen",
+      "cloudletScheduler": "CloudletSchedulerTimeShared"
     }
   ],
   "Cloudlets": [
@@ -92,40 +94,35 @@
       "length": 4000,
       "fileSize": 3000,
       "outputSize": 300,
-      "CLOUDLET_PES": 2 ,
-      "UtilizationModel": "UtilizationModelFull"
+      "CLOUDLET_PES": 2
     },
     {
       "id": 1,
       "length": 700,
       "fileSize": 300,
       "outputSize": 300,
-      "CLOUDLET_PES": 2,
-      "UtilizationModel": "UtilizationModelFull"
+      "CLOUDLET_PES": 2
     },
     {
       "id": 2,
       "length": 700,
       "fileSize": 300,
       "outputSize": 300,
-      "CLOUDLET_PES": 2,
-      "UtilizationModel": "UtilizationModelFull"
+      "CLOUDLET_PES": 2
     },
     {
       "id": 3,
       "length": 700,
       "fileSize": 300,
       "outputSize": 300,
-      "CLOUDLET_PES": 2,
-      "UtilizationModel": "UtilizationModelFull"
+      "CLOUDLET_PES": 2
     },
     {
       "id": 5,
       "length": 700,
       "fileSize": 300,
       "outputSize": 300,
-      "CLOUDLET_PES": 2,
-      "UtilizationModel": "UtilizationModelFull"
+      "CLOUDLET_PES": 2
     }
   ],
   "numUser": 1

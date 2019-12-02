@@ -161,7 +161,7 @@ public class CloudRunner {
     }
 
     @NotNull
-    private List<Cloudlet> createCloudLetsFromConfig() {
+        private List<Cloudlet> createCloudLetsFromConfig() {
         final List<Cloudlet> list = new ArrayList<>();
         final UtilizationModel utilization = new UtilizationModelDynamic(0.2);
         JSONArray CLOUDLETS = (JSONArray) CONFIG_READER.getProperty("Cloudlets");
